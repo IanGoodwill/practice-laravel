@@ -59,6 +59,11 @@ class TweetController extends Controller
     public function show($id)
     {
         //
+        $tweets = Tweet::all();
+
+        $tweet = Tweet::findOrFail($id);
+
+        return view( 'tweets.show', compact('tweet','tweets') );
     }
 
     /**

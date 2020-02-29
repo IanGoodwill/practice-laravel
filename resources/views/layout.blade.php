@@ -14,7 +14,9 @@
         <h1>
             @yield('title')
         </h1>
-        
+      
+        @include('partials.sidebar')
+
         @yield('content')
         @include('partials.footer')
     </body>

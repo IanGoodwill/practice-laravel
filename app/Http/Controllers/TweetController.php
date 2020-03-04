@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Tweet;
+use App\Tweet; // need to pull in out model to use it
+use Auth; // need to pull in Auth in order to use it
+use App\User;
+
 
 class TweetController extends Controller
 {
@@ -15,7 +18,12 @@ class TweetController extends Controller
     public function index()
     {
         //
-        $tweets = Tweet::all();
+        // $tweets = Tweet::all();
+
+        $tweets = Tweet::query( )
+            ->join( 'users', 'tweets.user_id', '=', 'users.id' ) // faster to do both queries together
+            ->get(); // we want them all because we are looping through them in our index
+
 
         return view('tweets.index', compact('tweets'));
     }
@@ -28,8 +36,13 @@ class TweetController extends Controller
     public function create()
     {
         //
-        return view('tweets.create');
+        $user = Auth::user();
+        if ( $user ) // we are logged in and can create posts
+            return view('tweets.create');
+        else // not logged in, can not make posts. redirect to index
+            return redirect('/tweets');
     }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -40,14 +53,24 @@ class TweetController extends Controller
     public function store(Request $request)
     {
         //
+        if ( $user = Auth::user() ) //only store data if user is logged in. demonstrating differnt way to store user
+        {
+
         $validatedData = $request->validate(array( 
             'message' => 'required|max:255',
-            'author'  => 'required|max:64'
+           
 
-         ));
-         $tweet = Tweet::create( $validatedData);
+        ));
 
+        $tweet = new Tweet();
+        $tweet->user_id = $user->id;
+        $tweet->message = $validatedData['message'];
+        $tweet->save();
+        
+    
          return redirect('/tweets')->with('success', 'Tweet saved.');
+        }// redirect by default
+         return redirect('/tweets');
     }
 
     /**
@@ -59,11 +82,12 @@ class TweetController extends Controller
     public function show($id)
     {
         //
-        $tweets = Tweet::all();
-
         $tweet = Tweet::findOrFail($id);
 
-        return view( 'tweets.show', compact('tweet','tweets') );
+        $tweetUser = $tweet->user()->get()[0];
+
+        return view( 'tweets.show', compact('tweet'), compact('tweetUser') );
+
     }
 
     /**
@@ -75,9 +99,11 @@ class TweetController extends Controller
     public function edit($id)
     {
         //
+        if ( $user = Auth::user() ) {
         $tweet = Tweet::findOrFail($id);
-
         return view( 'tweets.edit', compact('tweet') );
+    }
+    return redirect('/tweets');
     }
 
     /**
@@ -90,14 +116,15 @@ class TweetController extends Controller
     public function update(Request $request, $id)
     {
         //
+        if ( $user = Auth::user() ) {
         $validatedData = $request->validate(array( 
             'message' => 'required|max:255',
-            'author'  => 'required|max:64'
          ));
 
          Tweet::whereId($id)->update($validatedData);
-
          return redirect('/tweets')->with('success', 'Tweet updated.');
+        }
+        return redirect('/tweets');
     }
 
     /**
@@ -109,10 +136,13 @@ class TweetController extends Controller
     public function destroy($id)
     {
         //
+        if ( $user = Auth::user() ) {
         $tweet = Tweet::findOrFail($id);
 
         $tweet->delete();
 
         return redirect('/tweets')->with('success', 'Tweet deleted.');
     }
+    return redirect('/tweets');
+}
 }

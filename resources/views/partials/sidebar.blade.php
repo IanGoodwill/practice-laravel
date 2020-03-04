@@ -1,4 +1,5 @@
 
+{{-- 
 @if ( session()->get('success') )
     <div role="alert">
     {{ session()->get('success') }}
@@ -21,6 +22,5 @@
 
     @endforeach
 
-</ul>
-
+</ul> --}}
 

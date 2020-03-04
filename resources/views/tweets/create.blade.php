@@ -18,10 +18,7 @@ Create Tweet Form
         <textarea name="message" id="message" cols="30" rows="10"></textarea>
     </label>
 
-    <label for="author">
-        <strong> Author Name: </strong>
-        <input type="text" name="author" id="author">
-    </label>
+    
     <input type="submit" value="Publish Tweet">
 
 </form>

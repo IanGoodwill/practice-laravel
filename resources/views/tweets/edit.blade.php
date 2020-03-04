@@ -20,10 +20,10 @@ Edit Tweet
         <textarea name="message" id="message" cols="30" rows="10">{{ $tweet->message }}</textarea>
     </label>
 
-    <label for="author">
+    {{--<label for="author">
         <strong> Author Name: </strong>
         <input type="text" name="author" id="author" value="{{ $tweet->author}}">
-    </label>
+    </label> --}}
     <input type="submit" value="Update Tweet">
 
 </form>

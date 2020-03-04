@@ -11,4 +11,10 @@ class Tweet extends Model
         'message',
         'author',
     );
+
+    public function user()
+    {
+        return $this->belongsTo( 'App\User' );
+    }
+
 }

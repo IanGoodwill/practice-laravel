@@ -17,16 +17,20 @@ Tweets Index
 <ul>
     @foreach($tweets as $tweet)
         <li>
-            <h2>{{ $tweet->author }}</h2>
+            <h2>{{$tweet->name}}</h2>
             <p>
                 {{ $tweet->message }}
             </p>
             <ul>
+            @auth
                 <li>
                     <a href="{{ route('tweets.edit', $tweet->id) }}">
                         Edit Tweet
                     </a>
                 </li>
+
+
+
                 <li>
                     <form action="{{ route('tweets.destroy', $tweet->id) }}" method="post">
                         @csrf 
@@ -36,7 +40,7 @@ Tweets Index
                 </li>
             </ul>
         </li>
-
+    @endauth
     @endforeach
 
 </ul>

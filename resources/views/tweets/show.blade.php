@@ -17,8 +17,8 @@ View Tweet
 
         <p>{{ $tweet->message }}</p>
    
-        <strong> Author Name: </strong>
-        {{ $tweet->author}}
+        <strong> Name: </strong>
+        {{ $tweetUser->name }}
    
  
 

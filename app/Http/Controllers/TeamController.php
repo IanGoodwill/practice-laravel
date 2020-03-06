@@ -26,6 +26,7 @@ class TeamController extends Controller
             $newSet->team = $team;
             $newSet->users = $team->users()->get();
             $teamsAndUsers[] = $newSet;
+            
         }
 
         return view( 'teams.index', compact( 'teamsAndUsers' ) );

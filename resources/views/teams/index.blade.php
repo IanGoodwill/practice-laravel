@@ -13,7 +13,7 @@ Teams & Users Index
 <ul>
     @foreach( $teamsAndUsers as $tu )
         <li>
-            <h2>{{ $tu->team->team_name }}</h2>
+            <h2>{{ $tu->team->name }}</h2>
             @if( isset( $tu->users ) && !empty( $tu->users ) )
                 <ul>
                     @foreach( $tu->users as $tUser )

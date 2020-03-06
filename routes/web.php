@@ -21,6 +21,9 @@ Route::get('/', function () {
 
 
 Route::resource( 'tweets', 'TweetController' );
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('team/{team}', 'TeamController@show')->name('team.show');

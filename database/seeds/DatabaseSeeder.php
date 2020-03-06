@@ -13,5 +13,11 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UsersTableSeeder::class);
         $this->call( (new TweetsTableSeeder()) ->run() );
+
+        $this->call( (new UsersTableSeeder()) ->run() );
+
+        $this->call( (new TeamUsersTableSeeder()) ->run() );
+
+        $this->call( (new TeamTableSeeder()) ->run() );
     }
 }

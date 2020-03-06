@@ -25,7 +25,7 @@
         @endauth
         @guest
         <li class="nav-item">
-        <a class="navbar-brand" href="{{ route( 'tweets.create') }}">
+        <a class="navbar-brand" href="{{ route( 'login') }}">
             Login
             </a>
         </li>

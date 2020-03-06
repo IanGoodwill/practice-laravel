@@ -20,6 +20,8 @@ class TweetController extends Controller
         //
         // $tweets = Tweet::all();
 
+        
+
         $tweets = Tweet::query( )
             ->join( 'users', 'tweets.user_id', '=', 'users.id' ) // faster to do both queries together
             ->get(); // we want them all because we are looping through them in our index
@@ -145,4 +147,7 @@ class TweetController extends Controller
     }
     return redirect('/tweets');
 }
+
+
+
 }

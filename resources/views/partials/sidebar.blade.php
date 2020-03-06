@@ -1,5 +1,7 @@
 
+
 {{-- 
+
 @if ( session()->get('success') )
     <div role="alert">
     {{ session()->get('success') }}
@@ -9,7 +11,7 @@
 <ul class="float-right">
     @foreach($tweets as $tweet)
         <li>
-            <h2>{{ $tweet->author }}</h2>
+            <h2> {{ $tweetUser->name }}</h2>
             <p>
                 {{ $tweet->message }}
             </p>
@@ -22,5 +24,5 @@
 
     @endforeach
 
-</ul> --}}
-
+</ul> 
+--}}

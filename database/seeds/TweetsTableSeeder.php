@@ -44,16 +44,6 @@ class TweetsTableSeeder extends Seeder
         ));
     }
 
-    $faker = Factory::create();
-    
-    
-foreach( range(1, 10) as $index ) {
-    DB::table( 'users' )->insert( array(
-        'name' => $faker->name,
-        'email' => $faker->email,
-        'password' => $faker->password
-    ));
-}
 
     }
 }

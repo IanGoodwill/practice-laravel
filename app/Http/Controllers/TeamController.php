@@ -17,8 +17,20 @@ class TeamController extends Controller
      */
     public function index()
     {
-        //
+        $teamsAndUsers = array();
+
+        $teams = Team::all();
+        foreach ( $teams as $team )
+        {
+            $newSet = new \stdClass();
+            $newSet->team = $team;
+            $newSet->users = $team->users()->get();
+            $teamsAndUsers[] = $newSet;
+        }
+
+        return view( 'teams.index', compact( 'teamsAndUsers' ) );
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -28,6 +40,8 @@ class TeamController extends Controller
     public function create()
     {
         //
+        $team = Team::find($team_id);
+        $team->users()->attach($user_id);
         
     }
 
@@ -48,21 +62,13 @@ class TeamController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Team $team)
     {
-        //
-        $teamsUsers = array();
+      
 
-        $teams = Team::all();
-
-        foreach ($teams as $team)
-        {
-
-        }
-
-
-        return view('teams.show', compact('team'));
+        return view( 'teams.show', compact('team') );
     }
+
 
     /**
      * Show the form for editing the specified resource.
